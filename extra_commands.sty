@@ -1,0 +1,80 @@
+\newcommand{\fnurl}[1]{\footnote{\url{#1}}}
+
+\newenvironment{longlisting}{\captionsetup{type=listing}}{}
+\newenvironment{shortlisting}[1][h]{%
+	\expandafter\listing\expandafter[#1]%
+}{%
+	\endlisting
+}
+
+% FIXME: ne fonctionne correctement qu'avec pdflatex
+% décommenter une des version de \attachsource
+% la couleur par defaut est definie dans misc.sty
+% sans icone
+%\newcommand*{\attachsource}[2]{\textattachfile[color]{#1}{#2}}
+% avec une icone
+%\newcommand*{\attachsource}[2]{\textattachfile[]{#1}{#2} \attachfile[icon=Paperclip, print=flase]{#1}}
+% avec une icone, le texte n'est pas un lien
+\newcommand*{\attachsource}[2]{{#2} \attachfile[icon=Paperclip, print=false]{#1}}
+
+\newcommand*{\attachcaption}[2]{\caption[#2]{\attachsource{#1}{#2}}}
+
+
+\makeatletter
+\ltxkeys@boolkey{includesource}[includesource]{long}[true]{}
+\ltxkeys@cmdkeys{includesource}{caption,label,pos,mintedoptions}{}
+
+\newcommand*{\includesource@stripouterbraces}[1]{\expandafter\ltxkeys@stripallouterbraces\expandafter{#1}}
+\newcommand*{\includesource}[3][]{
+	\begingroup
+	    \ltxkeys@setkeys{includesource}{#1}
+	
+	    \ifincludesourcelong
+	        \begin{longlisting}
+	    \else
+	        %\begin{shortlisting}[\cmdKV@includesource@pos]
+	        \ifcsname cmdKV@includesource@pos\endcsname
+	            \begin{shortlisting}[\cmdKV@includesource@pos]
+	        \else
+	            \begin{shortlisting}
+	        \fi
+	    \fi
+	    
+	    \ifcsname cmdKV@includesource@mintedoptions\endcsname
+    	    \edef \includesource@mintedoptions {\includesource@stripouterbraces{\cmdKV@includesource@mintedoptions}}
+    	    \expandafter\inputminted\expandafter[\includesource@mintedoptions]{#2}{#3}
+    	\else
+        	\inputminted{#2}{#3}
+    	\fi
+	    
+	    \ifcsname cmdKV@includesource@caption\endcsname
+	        \attachcaption{#3}{\cmdKV@includesource@caption}
+	    \else
+	        \attachcaption{#3}{\nolinkurl{#3}}
+	    \fi
+	    
+	    \ifcsname cmdKV@includesource@label\endcsname
+	        \label{\cmdKV@includesource@label}
+	    \fi
+	    
+	    \ifincludesourcelong
+	        \end{longlisting}
+	    \else
+	        \end{shortlisting}
+	    \fi
+    \endgroup
+}
+\makeatother
+
+% \includesource[options]{language}{filename}
+%   language: languge du fichier (c,rust,text,...)
+%   filename: le fichier à inclure
+%   options: couples clé-valeurs:
+%     caption: la légende, si pas précisé: filename
+%     long: booléen, si vrai, l'environement n'est pas flottant et peu ainsi
+%           être sur plusieurs pages, si pas précisé: faux
+%     label: le \label
+%     mintedoptions: options passées à \inputminted
+%     pos: le positionnement du float (h,H,p, ...), utilisé seulement si long 
+%          est faux, si pas précisé la valeur par defaut des flottant est 
+%          utilisée
