@@ -1,3 +1,6 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{inc/extra_commands}
+
 \newcommand{\fnurl}[1]{\footnote{\url{#1}}}
 
 \newenvironment{longlisting}{\captionsetup{type=listing}}{}
@@ -20,7 +23,6 @@
 \newcommand*{\attachcaption}[2]{\caption[#2]{\attachsource{#1}{#2}}}
 
 
-\makeatletter
 \ltxkeys@boolkey{includesource}[includesource]{long}[true]{}
 \ltxkeys@cmdkeys{includesource}{caption,label,pos,mintedoptions}{}
 
@@ -64,7 +66,6 @@
 	    \fi
     \endgroup
 }
-\makeatother
 
 % \includesource[options]{language}{filename}
 %   language: languge du fichier (c,rust,text,...)
