@@ -1,6 +1,9 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{inc/embedsources}
-\immediate\write18{rm latexsources.zip}
-\immediate\write18{git ls-files --exclude-standard -co | zip -@ latexsources.zip}
-\IfFileExists{./latexsources.zip}{\embedfile{latexsources.zip}}{} 
-\immediate\write18{rm latexsources.zip}
+\ShellEscape{bash ./mklatexsources.sh}
+% Si on a pas réussi à générer le zip, on ignore cela.
+\IfFileExists{./latexsources.zip}{
+	\embedfile{latexsources.zip}
+	\immediate\write18{rm latexsources.zip}
+}{} 
+
