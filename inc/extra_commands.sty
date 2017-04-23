@@ -18,7 +18,9 @@
 % avec une icone
 %\newcommand*{\attachsource}[2]{\textattachfile[]{#1}{#2} \attachfile[icon=Paperclip, print=false]{#1}}
 % avec une icone, le texte n'est pas un lien
-\newcommand*{\attachsource}[2]{{#2} \attachfile[icon=Paperclip, print=false]{#1}}
+%\newcommand*{\attachsource}[2]{{#2} \attachfile[icon=Paperclip, print=false]{#1}}
+% avec une autre icone, necessite paquet fontawesome
+\newcommand*{\attachsource}[2]{{#2} \textattachfile[print=false]{#1}{\faFloppyO}}
 
 \newcommand*{\attachcaption}[2]{\caption[#2]{\attachsource{#1}{#2}}}
 
