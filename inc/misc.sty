@@ -9,11 +9,12 @@
 \attachfilesetup{color=blue}
 
 \AtBeginDocument{
-	\pagestyle{headings}
+	\pagestyle{scrheadings}
+	\automark[chapter]{chapter}  
 	\clearscrheadfoot
-	\ifoot[\thetitle, \thedate]{\thetitle, \thedate}
+	\ifoot[\thetitle, \theauthor, \thedate]{\thetitle, \theauthor, \thedate}
 	\ofoot[\pagemark/\pageref{LastPage}]{\pagemark/\pageref{LastPage}}
-	\ohead[]{\rightmark}
+	\ohead[]{\headmark}
 	
 	\hypersetup{
 		pdftitle={\thetitle},
