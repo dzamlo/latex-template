@@ -5,25 +5,25 @@
 
 \newenvironment{longlisting}{\captionsetup{type=listing}}{}
 \newenvironment{shortlisting}[1][h]{%
-	\expandafter\listing\expandafter[#1]%
+    \expandafter\listing\expandafter[#1]%
 }{%
-	\endlisting
+    \endlisting
 }
 
 \newtcbinputlisting{inputmintedcaption}[4][]{
-	blanker,bottom=0.9\baselineskip,
-	breakable,listing only,
-	before skip=0.9\baselineskip,
-	after skip=0.9\baselineskip,,
-	minted options={#1},
-	minted language={#2},
-	listing file={#4},
-	attach boxed title to bottom center,
-	minipage boxed title,
-	boxed title style={blanker},
-	title={{#3}},
-	% definit le nombre minimale de ligne qui accompage la legende sur la page suivante
-	enlargepage flexible=2\baselineskip
+    blanker,bottom=0.9\baselineskip,
+    breakable,listing only,
+    before skip=0.9\baselineskip,
+    after skip=0.9\baselineskip,,
+    minted options={#1},
+    minted language={#2},
+    listing file={#4},
+    attach boxed title to bottom center,
+    minipage boxed title,
+    boxed title style={blanker},
+    title={{#3}},
+    % definit le nombre minimale de ligne qui accompage la legende sur la page suivante
+    enlargepage flexible=2\baselineskip
 }
 
 % FIXME: ne fonctionne correctement qu'avec pdflatex
@@ -46,50 +46,50 @@
 
 \newcommand*{\includesource@stripouterbraces}[1]{\expandafter\ltxkeys@stripallouterbraces\expandafter{#1}}
 \newcommand*{\includesource}[3][]{
-	\begingroup
-	    \ltxkeys@setkeys{includesource}{#1}
-	    
-	    \ifcsname cmdKV@includesource@mintedoptions\endcsname
-	        \edef \includesource@mintedoptions {\includesource@stripouterbraces{\cmdKV@includesource@mintedoptions}}
-	    \else
-    	    \edef \includesource@mintedoptions {}
-	    \fi
-	    
-	    \providecommand{\cmdKV@includesource@caption}{\nolinkurl{#3}}
-	
-	    \ifincludesourcelong
-	        \begin{longlisting}
-	        	\expandafter\inputmintedcaption\expandafter[\includesource@mintedoptions]{#2}{\attachcaption{#3}{\cmdKV@includesource@caption}}{#3}
-	        	
-	        	\ifcsname cmdKV@includesource@label\endcsname
-	        	    \label{\cmdKV@includesource@label}
-	        	\fi
-	        \end{longlisting}
-	    \else
-	        %\begin{shortlisting}[\cmdKV@includesource@pos]
-	        \ifcsname cmdKV@includesource@pos\endcsname
-	            \begin{shortlisting}[\cmdKV@includesource@pos]
-	        \else
-	            \begin{shortlisting}
-	        \fi
-	        
-		        \ifcsname cmdKV@includesource@mintedoptions\endcsname
-		            \expandafter\inputminted\expandafter[\includesource@mintedoptions]{#2}{#3}
-		        \else
-		            \inputminted{#2}{#3}
-		        \fi
-		        \ifcsname cmdKV@includesource@caption\endcsname
-		            \attachcaption{#3}{\cmdKV@includesource@caption}
-		        \else
-		            \attachcaption{#3}{\nolinkurl{#3}}
-		        \fi
-		        
-		        \ifcsname cmdKV@includesource@label\endcsname
-		            \label{\cmdKV@includesource@label}
-		        \fi
-	        
-	        \end{shortlisting}
-	    \fi
+    \begingroup
+        \ltxkeys@setkeys{includesource}{#1}
+        
+        \ifcsname cmdKV@includesource@mintedoptions\endcsname
+            \edef \includesource@mintedoptions {\includesource@stripouterbraces{\cmdKV@includesource@mintedoptions}}
+        \else
+            \edef \includesource@mintedoptions {}
+        \fi
+        
+        \providecommand{\cmdKV@includesource@caption}{\nolinkurl{#3}}
+    
+        \ifincludesourcelong
+            \begin{longlisting}
+                \expandafter\inputmintedcaption\expandafter[\includesource@mintedoptions]{#2}{\attachcaption{#3}{\cmdKV@includesource@caption}}{#3}
+                
+                \ifcsname cmdKV@includesource@label\endcsname
+                    \label{\cmdKV@includesource@label}
+                \fi
+            \end{longlisting}
+        \else
+            %\begin{shortlisting}[\cmdKV@includesource@pos]
+            \ifcsname cmdKV@includesource@pos\endcsname
+                \begin{shortlisting}[\cmdKV@includesource@pos]
+            \else
+                \begin{shortlisting}
+            \fi
+            
+                \ifcsname cmdKV@includesource@mintedoptions\endcsname
+                    \expandafter\inputminted\expandafter[\includesource@mintedoptions]{#2}{#3}
+                \else
+                    \inputminted{#2}{#3}
+                \fi
+                \ifcsname cmdKV@includesource@caption\endcsname
+                    \attachcaption{#3}{\cmdKV@includesource@caption}
+                \else
+                    \attachcaption{#3}{\nolinkurl{#3}}
+                \fi
+                
+                \ifcsname cmdKV@includesource@label\endcsname
+                    \label{\cmdKV@includesource@label}
+                \fi
+            
+            \end{shortlisting}
+        \fi
     \endgroup
 }
 
