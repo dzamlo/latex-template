@@ -9,19 +9,20 @@
 \attachfilesetup{color=blue}
 
 \AtBeginDocument{
-	\pagestyle{headings}
-	\clearscrheadfoot
-	\ifoot[\thetitle, \thedate]{\thetitle, \thedate}
-	\ofoot[\pagemark/\pageref{LastPage}]{\pagemark/\pageref{LastPage}}
-	\ohead[]{\rightmark}
-	
-	\hypersetup{
-		pdftitle={\thetitle},
-		pdfauthor={\theauthor}
-	}
-	
-	\date{\thedate}
-	\title{\thetitle}
-	\subtitle{\thesubtitle}
-	\author{\theauthor}
+    \pagestyle{scrheadings}
+    \automark[chapter]{chapter}  
+    \clearscrheadfoot
+    \ifoot[\thetitle, \theauthor, \thedate]{\thetitle, \theauthor, \thedate}
+    \ofoot[\pagemark/\pageref{LastPage}]{\pagemark/\pageref{LastPage}}
+    \ohead[]{\headmark}
+    
+    \hypersetup{
+        pdftitle={\thetitle},
+        pdfauthor={\theauthor}
+    }
+    
+    \date{\thedate}
+    \title{\thetitle}
+    \subtitle{\thesubtitle}
+    \author{\theauthor}
 }

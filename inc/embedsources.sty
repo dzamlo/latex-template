@@ -3,7 +3,7 @@
 \ShellEscape{bash ./mklatexsources.sh}
 % Si on a pas réussi à générer le zip, on ignore cela.
 \IfFileExists{./latexsources.zip}{
-	\embedfile{latexsources.zip}
-	\immediate\write18{rm latexsources.zip}
+    \embedfile{latexsources.zip}
+    \immediate\write18{rm latexsources.zip}
 }{} 
 
