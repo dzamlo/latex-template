@@ -24,6 +24,5 @@
     \date{\thedate}
     \title{\thetitle}
     \ifcsdef{thesubtitle}{\subtitle{\thesubtitle}}{}
-    
-    \author{\theauthor}
+    \ifcsdef{thetitleauthor}{\author{\thetitleauthor}}{\author{\theauthor}}    
 }
